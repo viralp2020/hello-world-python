@@ -13,7 +13,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    sh 'docker build -t your-dockerhub-username/hello-world-python .'
+                    sh 'docker build -t viralp1983/hello-world-python .'
                 }
             }
         }
@@ -21,7 +21,7 @@ pipeline {
             steps {
                 withDockerRegistry([ credentialsId: 'dockerhub', url: '' ]) {
                     script {
-                        sh 'docker push your-dockerhub-username/hello-world-python'
+                        sh 'docker push viralp1983/hello-world-python'
                     }
                 }
             }
