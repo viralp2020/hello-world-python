@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Docker Push') {
             steps {
-                withDockerRegistry([ credentialsId: 'dockerhub', url: '' ]) {
+                withDockerRegistry([ credentialsId: 'viralp1983', url: '' ]) {
                     script {
                         sh 'docker push viralp1983/hello-world-python'
                     }
