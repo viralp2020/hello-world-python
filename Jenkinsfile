@@ -1,7 +1,10 @@
 pipeline {
-    agent {
-        docker { image 'python:3.8-slim' }
+    agent any
+
+    environment {
+        DOCKER_WORKSPACE = sh(script: 'echo $WORKSPACE | sed "s/^\\([a-zA-Z]\\):/\\/\\1/" | sed "s/\\\\/\\//g"', returnStdout: true).trim()
     }
+
     stages {
         stage('Build') {
             steps {
@@ -19,7 +22,7 @@ pipeline {
         }
         stage('Docker Push') {
             steps {
-                withDockerRegistry([ credentialsId: 'viralp1983', url: '' ]) {
+                withDockerRegistry([credentialsId: 'viralp1983', url: '']) {
                     script {
                         sh 'docker push viralp1983/hello-world-python'
                     }
@@ -28,3 +31,4 @@ pipeline {
         }
     }
 }
+
