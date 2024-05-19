@@ -5,14 +5,17 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    bat 'python hello.py'
+                    // Use Docker to run the Python script
+                    docker.image('python:3.8-slim').inside {
+                        sh 'python hello.py'
+                    }
                 }
             }
         }
         stage('Docker Build') {
             steps {
                 script {
-                    bat 'docker build -t viralp1983/hello-world-python .'
+                    bat 'docker build -t littal_12@yahoo.com/hello-world-python .'
                 }
             }
         }
@@ -20,7 +23,7 @@ pipeline {
             steps {
                 withDockerRegistry([credentialsId: 'viralp1983', url: '']) {
                     script {
-                        bat 'docker push viralp1983/hello-world-python'
+                        bat 'docker push littal_12@yahoo.com/hello-world-python'
                     }
                 }
             }
